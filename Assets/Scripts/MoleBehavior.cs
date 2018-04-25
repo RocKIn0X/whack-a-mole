@@ -10,30 +10,35 @@ public class MoleBehavior : MonoBehaviour {
     private float time = 0f;
     private string state = "HIDE";
 
+    Animator animator;
+
 	// Use this for initialization
 	void Start () {
         spawnTime = Random.Range(MIN_TIME, MAX_TIME);
+        animator = this.GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (state == "HIDE")
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("idle 1"))
         {
-            if (time >= spawnTime)
-            {
-                transform.position += new Vector3(0f, 1f, 0f);
-                time = 0;
-                state = "SHOW";
-            }
-        } else if (state == "SHOW") {
-            if (time >= showTime)
-            {
-                transform.position -= new Vector3(0f, 1f, 0f);
-                time = 0;
-                spawnTime = Random.Range(MIN_TIME, MAX_TIME);
-                state = "HIDE";
-            }
+            time += Time.deltaTime;
         }
-        time += Time.deltaTime;
+
+        if (time >= spawnTime)
+        {
+            animator.SetTrigger("Show");
+            time = 0f;
+            spawnTime = Random.Range(MIN_TIME, MAX_TIME);
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("idle"))
+        {
+            print("Hit");
+            animator.SetTrigger("Hit");
+        }
     }
 }
