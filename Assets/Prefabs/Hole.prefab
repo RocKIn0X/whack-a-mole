@@ -1337,8 +1337,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed820e4b0fa5def4fb3ca89c28c8ed68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MAX_TIME: 2
+  MAX_TIME: 6
   MIN_TIME: 1
+  scoreManager: {fileID: 0}
 --- !u!136 &136482627869997404
 CapsuleCollider:
   m_ObjectHideFlags: 1

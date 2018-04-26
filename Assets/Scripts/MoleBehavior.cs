@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MoleBehavior : MonoBehaviour {
     public float MAX_TIME = 15f;
     public float MIN_TIME = 5f;
+    public ScoreManager scoreManager;
+
     private float spawnTime;
-    private float showTime = 3f;
     private float time = 0f;
-    private string state = "HIDE";
 
     Animator animator;
 
@@ -23,6 +24,7 @@ public class MoleBehavior : MonoBehaviour {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("idle 1"))
         {
             time += Time.deltaTime;
+            animator.SetBool("Hit1", false);
         }
 
         if (time >= spawnTime)
@@ -38,7 +40,8 @@ public class MoleBehavior : MonoBehaviour {
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("idle"))
         {
             print("Hit");
-            animator.SetTrigger("Hit");
+            animator.SetBool("Hit1", true);
+            scoreManager.UpdateScore();
         }
     }
 }
